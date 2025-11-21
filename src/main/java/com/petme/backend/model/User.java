@@ -1,5 +1,6 @@
 package com.petme.backend.model;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,24 @@ public class User {
 
     @Column(nullable = false)
     private Boolean status = true;
+
+    //RELACIONES
+    //PUBLICACION
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Publicacion> publicaciones = new ArrayList<>();
+    //NOTIFICACIONES
+
+    //ADOPCIONES
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Adopcion> adoptions= new ArrayList<>();
+
+    //MASCOTAS
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Mascotas> mascotas= new ArrayList<>();
+
+    //Tabla intermedia-mensajes_has_usuario
+    //depende de tabla mensajes
+
 
     public Long getId() {
         return id;

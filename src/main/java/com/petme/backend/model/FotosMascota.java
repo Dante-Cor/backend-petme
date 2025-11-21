@@ -24,7 +24,12 @@ public class FotosMascota {
     @Column(name = "orden_fotos_mascotas", nullable = false)
     private Integer ordenFoto;
 
-    //Relación tablas -- pendiente
+    //Relación tablas Mascotas-Fotos Mascota
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fotos_id_mascotas")
+    private Mascotas mascota;
+
+
 
     //Constructor
     public FotosMascota(Long id, String urlFoto, LocalDateTime dateFoto, Integer ordenFoto) {

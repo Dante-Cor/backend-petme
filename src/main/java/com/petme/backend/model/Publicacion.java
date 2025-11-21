@@ -30,23 +30,24 @@ public class Publicacion {
     // Relación con User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id_usuario", nullable = false)
-    private User usuario;
+    private User user;
+
 
     // Relación con Mascota
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mascotas_id_mascotas")
-    private Mascota mascota;
+    private Mascotas mascota;
 
     // Constructors
     public Publicacion() {}
 
-    public Publicacion(Long id, String titulo, String tipo, LocalDateTime fechaPublicacion, Integer likes, User usuario, Mascota mascota) {
+    public Publicacion(Long id, String titulo, String tipo, LocalDateTime fechaPublicacion, Integer likes, User usuario, Mascotas mascota) {
         this.id = id;
         this.titulo = titulo;
         this.tipo = tipo;
         this.fechaPublicacion = fechaPublicacion;
         this.likes = likes;
-        this.usuario = usuario;
+        this.user = usuario;
         this.mascota = mascota;
     }
 
@@ -66,11 +67,11 @@ public class Publicacion {
     public Integer getLikes() { return likes; }
     public void setLikes(Integer likes) { this.likes = likes; }
 
-    public User getUsuario() { return usuario; }
-    public void setUsuario(User usuario) { this.usuario = usuario; }
+    public User getUsuario() { return user; }
+    public void setUsuario(User usuario) { this.user = usuario; }
 
-    public Mascota getMascota() { return mascota; }
-    public void setMascota(Mascota mascota) { this.mascota = mascota; }
+    public Mascotas getMascota() { return mascota; }
+    public void setMascota(Mascotas mascota) { this.mascota = mascota; }
 
     @Override
     public String toString() {
@@ -80,8 +81,8 @@ public class Publicacion {
                 ", tipo='" + tipo + '\'' +
                 ", fechaPublicacion=" + fechaPublicacion +
                 ", likes=" + likes +
-                ", usuario=" + (usuario != null ? usuario.getUsername() : "null") +
-                ", mascota=" + (mascota != null ? mascota.getNombre() : "null") +
+                ", usuario=" + (user != null ? user.getUsername() : "null") +
+                ", mascota=" + (mascota != null ? mascota.getNombre_mascotas() : "null") +
                 '}';
     }
 
