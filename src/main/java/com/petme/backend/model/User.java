@@ -162,6 +162,30 @@ public class User {
         this.status = status;
     }
 
+    public List<Publicacion> getPublicaciones() {
+        return publicaciones;
+    }
+
+    public void setPublicaciones(List<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
+
+    public List<Adopcion> getAdoptions() {
+        return adoptions;
+    }
+
+    public void setAdoptions(List<Adopcion> adoptions) {
+        this.adoptions = adoptions;
+    }
+
+    public List<Mascotas> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Mascotas> mascotas) {
+        this.mascotas = mascotas;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof User user)) return false;

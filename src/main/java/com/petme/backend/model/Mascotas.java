@@ -168,13 +168,21 @@ public class Mascotas {
         this.fecha_actualizacion = fecha_actualizacion;
     }
 
-    /*public User getUsers() {
+    public User getUsers() {
         return users;
     }
 
     public void setUsers(User users) {
         this.users = users;
-    }*/
+    }
+
+    public List<FotosMascota> getFotosMascotas() {
+        return fotosMascotas;
+    }
+
+    public void setFotosMascotas(List<FotosMascota> fotosMascotas) {
+        this.fotosMascotas = fotosMascotas;
+    }
 
     // ---- ToString
     @Override
