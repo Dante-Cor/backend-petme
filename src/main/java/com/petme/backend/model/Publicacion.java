@@ -32,6 +32,11 @@ public class Publicacion {
     @JoinColumn(name = "usuario_id_usuario", nullable = false)
     private User user;
 
+    // Relación con Adopcion
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "adoptions_id_adoptions", nullable = false)
+    private Adopcion adopcion;
+
 
     // Relación con Mascota
     @ManyToOne(fetch = FetchType.LAZY)
@@ -72,6 +77,9 @@ public class Publicacion {
 
     public Mascotas getMascota() { return mascota; }
     public void setMascota(Mascotas mascota) { this.mascota = mascota; }
+
+    public Adopcion getAdopion() {return adopcion;}
+    public void setAdopcion(Adopcion adopcion) {this.adopcion = adopcion;}
 
     @Override
     public String toString() {
