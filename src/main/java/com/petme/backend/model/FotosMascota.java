@@ -29,8 +29,6 @@ public class FotosMascota {
     @JoinColumn(name = "fotos_id_mascotas")
     private Mascotas mascota;
 
-
-
     //Constructor
     public FotosMascota(Long id, String urlFoto, LocalDateTime dateFoto, Integer ordenFoto) {
         this.id = id;
@@ -73,6 +71,16 @@ public class FotosMascota {
 
     public void setOrdenFoto(Integer ordenFoto) {
         this.ordenFoto = ordenFoto;
+    }
+    //Getter y Setters cardinalidad
+
+
+    public Mascotas getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascotas mascota) {
+        this.mascota = mascota;
     }
 
     //toString
