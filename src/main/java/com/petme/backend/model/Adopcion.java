@@ -3,6 +3,8 @@ package com.petme.backend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +14,6 @@ public class Adopcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_adoptions")
     private Long id;
-
 
     @Column(name="data_app",nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date_Application;
@@ -27,6 +28,16 @@ public class Adopcion {
 
     @Column(nullable = false)
     private String comments;
+
+    //Cardinalidad con User
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    //Cardinalidad con publicacion
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "adopcion", fetch = FetchType.LAZY)
+    private List<Publicacion> publicaciones = new ArrayList<>();
+
 
     // Constructor completo
     public Adopcion(Long id, LocalDateTime date_Application, LocalDateTime date_authorization,
@@ -85,6 +96,13 @@ public class Adopcion {
         this.comments = comments;
     }
 
+    public User getUser() { //Getters y Setters de cardinalidad
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     // toString
 
     @Override
