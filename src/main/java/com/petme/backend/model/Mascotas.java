@@ -3,6 +3,8 @@ package com.petme.backend.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -44,10 +46,16 @@ public class Mascotas {
     @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fecha_actualizacion;
 
-    /*// ----- Relación de User a Mascotas 1:N ------
+    // ----- Relación de User a Mascotas 1:N ------
     @OneToMany
     @JoinColumn(name = "mascotas_id_user")
-    private User users;*/
+    private User users;
+
+    //----Relación de Mascotas a Fotos Mascotas
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mascotas")
+    private List<FotosMascota> fotosMascotas= new ArrayList<>();
+
+
 
     // --- Constructor
     public Mascotas(Long id_mascotas, String nombre_mascotas, String especie, Integer edad, String tamaño, String sexo, String descripcion, String foto_principal, String estado_adopcion, LocalDateTime fecha_publicacion, LocalDateTime fecha_actualizacion) {
