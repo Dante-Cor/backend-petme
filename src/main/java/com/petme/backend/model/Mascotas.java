@@ -1,12 +1,21 @@
 package com.petme.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(name = "mascotas")
 public class Mascotas {
@@ -16,12 +25,16 @@ public class Mascotas {
     private Long id_mascotas;
 
     // NN, UQ, VARCHAR(45)
+    @NotBlank(message = "El nombre es obligatorio")
+    @Size(min = 2, max = 45, message = "El nombre debe tener entre 2 y 45 caracteres")
     @Column(nullable = false, length = 45)
     private String nombre_mascotas;
 
     @Column(nullable = false, length = 45)
     private String especie;
 
+    @Min(value = 0, message = "La edad no puede ser negativa")
+    @Max(value = 30, message = "La edad no puede superar 30 años")
     @Column(nullable = false)
     private Integer edad;
 
@@ -40,20 +53,30 @@ public class Mascotas {
     @Column(nullable = false, length = 250)
     private String estado_adopcion;
 
+    @CreatedDate
     @Column(name = "fecha_publicacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fecha_publicacion;
 
+    @LastModifiedDate
     @Column(name = "fecha_actualizacion", nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime fecha_actualizacion;
 
-    // ----- Relación de User a Mascotas 1:N ------
-    @OneToMany
-    @JoinColumn(name = "mascotas_id_user")
-    private User users;
+    // ----- Relación de Mascotas a User (Muchas mascotas pertenecen a un usuario) ------
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mascotas_id_user", nullable = false)
+    private User user;
 
     //----Relación de Mascotas a Fotos Mascotas
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mascotas")
-    private List<FotosMascota> fotosMascotas= new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mascota", orphanRemoval = true)
+    private List<FotosMascota> fotosMascotas = new ArrayList<>();
+
+    //----Relación de Mascotas a Publicaciones (Una mascota puede tener muchas publicaciones)
+    @OneToMany(mappedBy = "mascota")
+    private List<Publicacion> publicaciones = new ArrayList<>();
+
+    //----Relación de Mascotas a Adopciones (Una mascota puede tener muchas solicitudes)
+    @OneToMany(mappedBy = "mascota")
+    private List<Adopcion> adopciones = new ArrayList<>();
 
 
 

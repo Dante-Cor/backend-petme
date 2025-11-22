@@ -50,16 +50,18 @@ public class User {
 
     //RELACIONES
     //PUBLICACION
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Publicacion> publicaciones = new ArrayList<>();
     //NOTIFICACIONES
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
+    private List<Notificaciones> notificaciones = new ArrayList<>();
 
     //ADOPCIONES
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Adopcion> adoptions= new ArrayList<>();
 
     //MASCOTAS
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     private List<Mascotas> mascotas= new ArrayList<>();
 
     //Tabla intermedia-mensajes_has_usuario

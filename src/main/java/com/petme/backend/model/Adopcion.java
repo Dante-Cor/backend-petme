@@ -28,6 +28,16 @@ public class Adopcion {
 
     @Column(nullable = false)
     private String comments;
+    // Relación con User (Un usuario puede tener muchas adopciones)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id_user", nullable = false)
+    private User user;
+
+    // Relación con Mascota (Una mascota puede tener muchas solicitudes de adopción)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "mascotas_id_mascotas", nullable = false)
+    private Mascotas mascota;
+
 
     //Cardinalidad con User
     @ManyToOne

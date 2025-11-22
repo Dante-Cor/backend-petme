@@ -83,6 +83,14 @@ public class FotosMascota {
         this.mascota = mascota;
     }
 
+    public Mascotas getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascotas mascota) {
+        this.mascota = mascota;
+    }
+
     //toString
     @Override
     public String toString() {
