@@ -1,5 +1,6 @@
 package com.petme.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -30,17 +31,20 @@ public class Publicacion {
     // Relación con User
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id_usuario", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     // Relación con Adopcion
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "adoptions_id_adoptions", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Adopcion adopcion;
 
 
     // Relación con Mascota
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mascotas_id_mascotas")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Mascotas mascota;
 
     // Constructors

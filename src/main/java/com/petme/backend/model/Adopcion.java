@@ -1,5 +1,7 @@
 package com.petme.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -30,12 +32,14 @@ public class Adopcion {
     private String comments;
 
     //Cardinalidad con User
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     //Cardinalidad con publicacion
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "adopcion", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Publicacion> publicaciones = new ArrayList<>();
 
 
