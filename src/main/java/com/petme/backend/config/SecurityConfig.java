@@ -97,6 +97,30 @@ public class SecurityConfig {
 
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").permitAll()
+                        // NOTIFICACIONES
+                        .requestMatchers(HttpMethod.POST, "/api/v1/notificaciones/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/notificaciones/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/notificaciones/**").authenticated()
+
+                        // MASCOTAS
+                        .requestMatchers(HttpMethod.POST, "/api/v1/mascotas/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/mascotas/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/mascotas/**").authenticated()
+
+                        // PUBLICACIONES
+                        .requestMatchers(HttpMethod.POST, "/api/v1/publicaciones/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/publicaciones/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/publicaciones/**").authenticated()
+
+                        // ADOPCIONES
+                        .requestMatchers(HttpMethod.POST, "/api/v1/adopciones/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/adopciones/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/adopciones/**").authenticated()
+
+                        // FOTOS
+                        .requestMatchers(HttpMethod.POST, "/api/v1/fotos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/fotos/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/fotos/**").authenticated()
 
                         .anyRequest().authenticated()
                 )

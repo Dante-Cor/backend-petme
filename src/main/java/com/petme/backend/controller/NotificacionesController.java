@@ -65,6 +65,16 @@ public class NotificacionesController {
         return ResponseEntity.ok("Todas las notificaciones marcadas como leídas");
     }
 
+    // 6. DELETE: Eliminar una notificación
+    // URL: DELETE /api/v1/notificaciones/{id}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        notificacionesService.eliminarNotificacion(id);
+
+        // Retornamos 204 No Content (Es el estándar para borrados exitosos)
+        return ResponseEntity.noContent().build();
+    }
+
     // --- MANEJO DE EXCEPCIONES ---
     // Este método "escucha" si ocurre un error de "No Encontrado" en cualquiera de los métodos de arriba
     @ExceptionHandler(NoSuchElementException.class)
