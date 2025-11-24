@@ -1,4 +1,5 @@
 package com.petme.backend.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.Order;
 
@@ -28,6 +29,7 @@ public class User {
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(length = 20)
@@ -51,15 +53,21 @@ public class User {
     //RELACIONES
     //PUBLICACION
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Publicacion> publicaciones = new ArrayList<>();
     //NOTIFICACIONES
-
+    //NOTIFICACIONES
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Notificaciones> notificaciones = new ArrayList<>();
     //ADOPCIONES
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Adopcion> adoptions= new ArrayList<>();
 
     //MASCOTAS
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Mascotas> mascotas= new ArrayList<>();
 
     //Tabla intermedia-mensajes_has_usuario
