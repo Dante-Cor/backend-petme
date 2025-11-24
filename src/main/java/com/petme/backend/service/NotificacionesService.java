@@ -41,6 +41,16 @@ public class NotificacionesService {
         return notificacionesRepository.save(nuevaNotificacion);
     }
 
+    // --- MÉTODO NUEVO: ELIMINAR ---
+    public void eliminarNotificacion(Long id) {
+        // 1. Verificar si existe (Si no, lanza error y el Controller lo atrapa)
+        if (!notificacionesRepository.existsById(id)) {
+            throw new NoSuchElementException("No se puede eliminar: La notificación con ID " + id + " no existe.");
+        }
+        // 2. Borrar
+        notificacionesRepository.deleteById(id);
+    }
+
     public List<Notificaciones> obtenerTodasPorUsuario(Long userId) {
         return notificacionesRepository.findAllByUser_id(userId);
     }
