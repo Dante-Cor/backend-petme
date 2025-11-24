@@ -47,12 +47,18 @@ public class Mascotas {
     private LocalDateTime fecha_actualizacion;
 
     // ----- Relación de User a Mascotas 1:N ------
-    @OneToMany
+    /*@OneToMany
     @JoinColumn(name = "mascotas_id_user")
-    private User users;
+    private User users;*/
+
+    // ✅ CÓDIGO CORREGIDO
+// La relación es: Muchas mascotas -> Un usuario
+    @ManyToOne
+    @JoinColumn(name = "mascotas_id_user") // Asegúrate que esta columna exista en tu DB
+    private User user;
 
     //----Relación de Mascotas a Fotos Mascotas
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mascotas")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mascota")
     private List<FotosMascota> fotosMascotas= new ArrayList<>();
 
 
@@ -168,13 +174,13 @@ public class Mascotas {
         this.fecha_actualizacion = fecha_actualizacion;
     }
 
-    /*public User getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(User users) {
-        this.users = users;
-    }*/
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // ---- ToString
     @Override

@@ -61,8 +61,8 @@ public class NotificacionesService {
     }
 
     @Transactional
-    public int marcarTodasComoLeidas(Long userId) {
-        return notificacionesRepository.markAllAsRead(userId);
+    public void marcarTodasComoLeidas(Long userId) {
+        notificacionesRepository.markAllAsRead(userId);
     }
 
     public Notificaciones obtenerPorId(Long notificacionId) {

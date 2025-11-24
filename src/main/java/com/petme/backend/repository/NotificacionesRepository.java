@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import javax.management.Notification;
 
 @Repository
 public interface NotificacionesRepository extends JpaRepository<Notificaciones, Long> {
@@ -25,5 +24,5 @@ public interface NotificacionesRepository extends JpaRepository<Notificaciones, 
     // 4. Marcar todas las notificaciones de un usuario como leídas
     @Modifying
     @Query("UPDATE Notificaciones n SET n.leida = true WHERE n.user.id = :userId AND n.leida = false")
-    int markAllAsRead(Long userId);
+    void markAllAsRead(Long userId);
 }
