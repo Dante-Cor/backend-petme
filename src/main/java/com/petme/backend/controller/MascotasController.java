@@ -35,5 +35,11 @@ public class MascotasController {
         Mascotas mascotaGuardada = mascotasService.createMascota(nuevaMascota, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(mascotaGuardada);
     }
+    // --- NUEVO MÉTODO GET Traer por Usuario ---
+    @GetMapping("/usuario/{userId}")
+    public ResponseEntity<List<Mascotas>> getByUserId(@PathVariable Long userId) {
+        List<Mascotas> lista = mascotasService.getByUserId(userId);
+        return ResponseEntity.ok(lista);
+    }
 
 }

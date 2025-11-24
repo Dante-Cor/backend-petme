@@ -1,5 +1,6 @@
 package com.petme.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -55,6 +56,7 @@ public class Mascotas {
 // La relación es: Muchas mascotas -> Un usuario
     @ManyToOne
     @JoinColumn(name = "mascotas_id_user") // Asegúrate que esta columna exista en tu DB
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
     //----Relación de Mascotas a Fotos Mascotas

@@ -19,6 +19,7 @@ public class MascotasService {
         this.userRepository = userRepository;
     }
 
+    // 1. Traer todas
     public List<Mascotas> getAllMascotas(){
         return mascotasRepository.findAll();
     }
@@ -38,5 +39,12 @@ public class MascotasService {
 
         // 4. Guardar
         return mascotasRepository.save(mascota);
+
+        }
+    // --- 3. MÉTODO FALTANTE: Buscar por Usuario ---
+    public List<Mascotas> getByUserId(Long userId) {
+        // Este método llama al que creamos en el Repositorio
+        return mascotasRepository.findAllByUser_Id(userId);
+
     }
 }
