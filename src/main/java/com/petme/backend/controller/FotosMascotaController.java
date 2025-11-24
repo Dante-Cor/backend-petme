@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fotos")
+@RequestMapping("/api/v1/fotos")
+@CrossOrigin(origins = "*")
 public class FotosMascotaController {
     //Inyectar clase
     private final FotosMascotaService fotosMascotaService;

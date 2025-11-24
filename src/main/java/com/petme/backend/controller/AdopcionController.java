@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/adopciones")
+@CrossOrigin(origins = "*")
 public class AdopcionController {
 
     private final AdopcionService adopcionService;
