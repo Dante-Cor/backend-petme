@@ -18,7 +18,7 @@ public class BackendApplication {
 	}
 
     /*EL siguiente codigo implementar un usuario de prueba automático usando el CommandLineRunner de Spring Boot. Esto asegura que siempre habrá una credencial funcional la primera vez que arranquen la base de datos. */
-    @Bean
+    /*@Bean
     public CommandLineRunner initData(UserRepository repo, PasswordEncoder encoder) {
         return args -> {
             // Solo creamos al usuario si la tabla está vacía
@@ -43,6 +43,6 @@ public class BackendApplication {
                 System.out.println("--- USUARIO INICIAL 'testuser' CREADO ---");
             }
         };
-    }
+    }*/
 
 }

@@ -4,6 +4,7 @@ import com.petme.backend.repository.UserRepository;
 import com.petme.backend.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -92,8 +93,11 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider) // <--- Inyectamos el proveedor aquí
                 .authorizeHttpRequests(auth -> auth
+
+
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/api/v1/users/new-user").permitAll() // Registro público
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
