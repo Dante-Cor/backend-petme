@@ -58,7 +58,37 @@ public class UserService {
         }
     }
 
-    // 7. Actualizar usuario completo por ID
+    // 7. Actualizar usuario (CORREGIDO CON LÓGICA DEFENSIVA)
+    public User updateUser(User updatedUser, Long id) {
+        return userRepository.findById(id)
+                .map(existingUser -> {
+                    existingUser.setName(updatedUser.getName());
+                    existingUser.setLastname(updatedUser.getLastname());
+                    existingUser.setEmail(updatedUser.getEmail());
+                    existingUser.setUsername(updatedUser.getUsername());
+
+                    // --- INICIO CORRECCIÓN ---
+                    // Solo encriptamos y actualizamos si viene una contraseña nueva válida
+                    if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                        existingUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+                    }
+                    // Si viene nula, NO la tocamos (se queda la contraseña vieja que ya sirve)
+                    // --- FIN CORRECCIÓN ---
+
+                    existingUser.setTelephone(updatedUser.getTelephone());
+                    existingUser.setCountry(updatedUser.getCountry());
+                    existingUser.setCity(updatedUser.getCity());
+                    existingUser.setPhotoProfile(updatedUser.getPhotoProfile());
+                    // Opcional: La fecha de registro no debería cambiar al actualizar perfil
+                    // existingUser.setRegisterDate(updatedUser.getRegisterDate());
+                    existingUser.setStatus(updatedUser.getStatus());
+
+                    return userRepository.save(existingUser);
+                })
+                .orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    /*// 7. Actualizar usuario completo por ID
     public User updateUser(User updatedUser, Long id) {
         return userRepository.findById(id)
                 .map(existingUser -> {
@@ -76,5 +106,5 @@ public class UserService {
                     return userRepository.save(existingUser);
                 })
                 .orElseThrow(() -> new UserNotFoundException(id));
-    }
+    }*/
 }

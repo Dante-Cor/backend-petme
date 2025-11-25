@@ -21,7 +21,7 @@ public class Adopcion {
     private LocalDateTime date_Application;
 
 
-    @Column(name="date_auth",nullable = false, columnDefinition = "DATETIME")
+    @Column(name="date_auth",nullable = true, columnDefinition = "DATETIME")
     private LocalDateTime date_authorization;
 
 

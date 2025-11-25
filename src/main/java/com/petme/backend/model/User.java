@@ -57,7 +57,6 @@ public class User {
     @JsonIgnore
     private List<Publicacion> publicaciones = new ArrayList<>();
     //NOTIFICACIONES
-    //NOTIFICACIONES
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Notificaciones> notificaciones = new ArrayList<>();
