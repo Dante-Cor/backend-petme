@@ -5,6 +5,7 @@ import com.petme.backend.model.Publicacion;
 import com.petme.backend.repository.PublicacionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -20,7 +21,22 @@ public class PublicacionService {
         return publicacionRepository.findAll();
     }
 
+   /*public Publicacion createPublicacion(Publicacion newPublicacion) {
+        return publicacionRepository.save(newPublicacion);
+    }*/
+
+    // Método corregido
     public Publicacion createPublicacion(Publicacion newPublicacion) {
+        // 1. Asignar fecha del servidor automáticamente (Más seguro)
+        if (newPublicacion.getFechaPublicacion() == null) {
+            newPublicacion.setFechaPublicacion(LocalDateTime.now()); // Requiere import java.time.LocalDateTime;
+        }
+
+        // 2. Inicializar likes en 0 si vienen nulos
+        if (newPublicacion.getLikes() == null) {
+            newPublicacion.setLikes(0);
+        }
+
         return publicacionRepository.save(newPublicacion);
     }
 

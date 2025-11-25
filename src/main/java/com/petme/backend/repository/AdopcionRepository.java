@@ -11,4 +11,7 @@ public interface AdopcionRepository extends JpaRepository<Adopcion, Long> {
 
     List<Adopcion> findByEstado(String estado);
 
+    // Permite ver "Mis Solicitudes"
+    List<Adopcion> findAllByUser_Id(Long userId);
+
 }

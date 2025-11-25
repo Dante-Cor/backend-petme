@@ -36,7 +36,7 @@ public class Publicacion {
 
     // Relación con Adopcion
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "adoptions_id_adoptions", nullable = false)
+    @JoinColumn(name = "adoptions_id_adoptions", nullable = true)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Adopcion adopcion;
 
