@@ -16,7 +16,7 @@ public class JwtUtil {
 
     // 1. Generar token con claims personalizados
     public String generateToken(User user) {
-        long expiration = 1000 * 60 * 30; // 30 minutos
+        long expiration = 1000 * 60 * 60 * 24; // 24 horas
 
         return Jwts.builder()
                 .signWith(secretKey)
