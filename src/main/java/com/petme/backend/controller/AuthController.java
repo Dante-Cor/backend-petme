@@ -25,14 +25,23 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<?> login(@RequestBody User loginUser) {
 
-        // 1. Buscamos al usuario usando tu método existente en UserService
-        User user = userService.findByUsername(username);
+        String identifier = loginUser.getUsername() != null ? loginUser.getUsername() : loginUser.getEmail();  // puede ser username o email
+        String password = loginUser.getPassword();
 
+
+        // 1. Buscamos al usuario usando el método existente en UserService
+        User user = userService.findByUsername(identifier);
+        //Por username
+        if (user == null) {
+            // intenta por email
+            user = userService.findByEmail(identifier);
+        }
         // 2. Validamos:
-        //    a) Que el usuario no sea null (exista)
+        //    a) Que el usuario o el email no sea null (exista)
         //    b) Que la contraseña enviada coincida con la encriptada en BD
+
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
 
             // 3. Si todo es correcto, generamos y devolvemos el token
