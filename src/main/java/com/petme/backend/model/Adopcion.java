@@ -17,7 +17,7 @@ public class Adopcion {
     @Column(name="id_adoptions")
     private Long id;
 
-    @Column(name="data_app",nullable = false, columnDefinition = "DATETIME")
+    @Column(name="data_app",nullable = true, columnDefinition = "DATETIME")
     private LocalDateTime date_Application;
 
 

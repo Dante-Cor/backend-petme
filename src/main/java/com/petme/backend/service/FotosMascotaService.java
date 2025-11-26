@@ -6,6 +6,7 @@ import com.petme.backend.repository.FotosMascotaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,6 +27,11 @@ public class FotosMascotaService {
 
     // Crear nueva foto
     public FotosMascota createFotoMascota(FotosMascota nuevaFoto) {
+        // FIX: Asignar la fecha actual automáticamente porque la BD la exige (NOT NULL)
+        if (nuevaFoto.getDateFoto() == null) {
+            nuevaFoto.setDateFoto(LocalDateTime.now());
+        }
+
         return fotosMascotaRepository.save(nuevaFoto);
     }
 
