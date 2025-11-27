@@ -29,8 +29,9 @@ public class Publicacion {
     private Integer likes;
 
     // Relación con User
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id_usuario", nullable = false)
+// Ya no es estrictamente necesario el JsonIgnoreProperties aquí, pero déjalo por seguridad
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
@@ -42,7 +43,7 @@ public class Publicacion {
 
 
     // Relación con Mascota
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "mascotas_id_mascotas")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Mascotas mascota;

@@ -47,4 +47,13 @@ public class MascotasService {
         return mascotasRepository.findAllByUser_Id(userId);
 
     }
+    public Mascotas findById(Long id) {
+        return mascotasRepository.findById(id).orElse(null);
+    }
+
+    // Método para actualizar una mascota existente
+    public Mascotas actualizarMascota(Mascotas mascota) {
+        mascota.setFecha_actualizacion(LocalDateTime.now());
+        return mascotasRepository.save(mascota);
+    }
 }

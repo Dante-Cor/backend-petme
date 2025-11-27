@@ -42,4 +42,22 @@ public class MascotasController {
         return ResponseEntity.ok(lista);
     }
 
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<Mascotas> cambiarEstado(@PathVariable Long id, @RequestParam String estado) {
+
+        Mascotas mascota = mascotasService.findById(id); // Usamos findById directamente
+        // (Si no tienes findById en el servicio, usa mascotasRepository.findById(id).orElseThrow(...))
+
+        if (mascota == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        mascota.setEstado_adopcion(estado);
+
+        // Usamos el nuevo método que solo guarda, sin pedir ID de usuario
+        Mascotas actualizada = mascotasService.actualizarMascota(mascota);
+
+        return ResponseEntity.ok(actualizada);
+    }
+
 }

@@ -32,10 +32,10 @@ public class Mascotas {
     @Column(nullable = false, length = 10)
     private String sexo;
 
-    @Column(nullable = false, unique = true, length = 250)
+    @Column(nullable = false, length = 250) // <--- Sin unique
     private String descripcion;
 
-    @Column(nullable = false, unique = true, length = 250)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String foto_principal;
 
     @Column(nullable = false, length = 250)
@@ -54,7 +54,7 @@ public class Mascotas {
 
     // ✅ CÓDIGO CORREGIDO
 // La relación es: Muchas mascotas -> Un usuario
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mascotas_id_user") // Asegúrate que esta columna exista en tu DB
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
@@ -182,6 +182,22 @@ public class Mascotas {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    // ... (tus otros métodos getters y setters) ...
+
+    @PrePersist // <--- AGREGAR ESTO AL FINAL
+    protected void onCreate() {
+        if (this.fecha_publicacion == null) {
+            this.fecha_publicacion = LocalDateTime.now();
+        }
+        if (this.fecha_actualizacion == null) {
+            this.fecha_actualizacion = LocalDateTime.now();
+        }
+        // Valor por defecto si no viene
+        if (this.estado_adopcion == null) {
+            this.estado_adopcion = "DISPONIBLE";
+        }
     }
 
     // ---- ToString
