@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.Order;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Objects;
 //1. Definir la clase de Java como una Entidad
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class User {
     @Column(length = 150)
     private String city;
 
-    @Column(name = "photo_profile")
+    @Column(name = "photo_profile", columnDefinition = "LONGTEXT")
     private String photoProfile;
 
     @Column(name = "register_date", nullable = false)

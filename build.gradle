@@ -34,6 +34,9 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
+    // Soporte para tipos de Hibernate 6 (Spring Boot 3)
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate6'
+
 
 }
 

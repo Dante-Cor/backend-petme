@@ -35,11 +35,27 @@ public class PublicacionController {
         return publicacionService.getAllPublicaciones();
     }
 
-    @PostMapping("/new-publicacion")
+   /* @PostMapping("/new-publicacion")
     public ResponseEntity<Publicacion> savePublicacion(@RequestBody Publicacion newPublicacion) {
         Publicacion saved = publicacionService.createPublicacion(newPublicacion);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }*/
+
+    @PostMapping("/new-publicacion")
+    public ResponseEntity<?> savePublicacion(@RequestBody Publicacion newPublicacion) {
+        try {
+            publicacionService.createPublicacion(newPublicacion);
+
+            // ESTO ARREGLA EL ERROR SIN INSTALAR NADA EXTRA:
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(java.util.Collections.singletonMap("mensaje", "Publicación creada con éxito"));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(java.util.Collections.singletonMap("error", e.getMessage()));
+        }
     }
+
 
     @GetMapping("/id-publicacion/{id}")
     public ResponseEntity<Publicacion> getById(@PathVariable Long id) {
@@ -130,5 +146,19 @@ public class PublicacionController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al comentar: " + e.getMessage());
         }
+    }
+
+    // GET: Obtener publicaciones de un usuario específico
+    @GetMapping("/usuario/{userId}")
+    public ResponseEntity<List<Publicacion>> getByUsuario(@PathVariable Long userId) {
+        List<Publicacion> lista = publicacionService.getAllPublicaciones()
+                .stream()
+                // FILTRO DE SEGURIDAD:
+                // 1. Verificamos que p.getUsuario() NO sea null
+                // 2. Verificamos que el ID coincida
+                .filter(p -> p.getUsuario() != null && p.getUsuario().getId().equals(userId))
+                .toList();
+
+        return ResponseEntity.ok(lista);
     }
 }
