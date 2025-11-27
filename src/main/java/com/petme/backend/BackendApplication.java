@@ -1,14 +1,14 @@
 package com.petme.backend;
 
-import com.petme.backend.model.User;
+/*import com.petme.backend.model.User;
 import com.petme.backend.repository.UserRepository;
-import org.springframework.boot.CommandLineRunner; // Importar esto
+import org.springframework.boot.CommandLineRunner; // Importar esto */
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.password.PasswordEncoder; // Importar esto
+/*import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder; // Importar esto */
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.time.LocalDateTime; // Necesario para algunas fechas
-import java.time.LocalDateTime;
+/*import java.time.LocalDateTime; // Necesario para algunas fechas
+import java.time.LocalDateTime;*/
 
 @SpringBootApplication
 public class BackendApplication {

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService) {
@@ -26,6 +26,7 @@ public class UserController {
     //2. Postear a todos nuevos users (POST)
     @PostMapping("/new-user")
     public ResponseEntity<User> saveUser(@RequestBody User newUser) {
+        System.out.println(">>> INTENTO DE REGISTRO RECIBIDO: " + newUser.getEmail());
         User userByUsername = userService.findByUsername(newUser.getUsername());
         User userByEmail = userService.findByEmail(newUser.getEmail());
 

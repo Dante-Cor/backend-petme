@@ -78,5 +78,19 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+    // Pega esto dentro de JwtFilter.java
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getRequestURI();
+        System.out.println("INSPECCIONANDO RUTA: " + path); // <--- ESTO ES VITAL
 
+        // Usamos 'contains' en lugar de 'startsWith' para ser más robustos
+        // por si hay algún prefijo raro en la URL
+        boolean saltarFiltro = path.contains("/api/v1/users/new-user");
+
+        if (saltarFiltro) {
+            System.out.println(" Saltando filtro JWT...");
+        }
+        return saltarFiltro;
+    }
 }

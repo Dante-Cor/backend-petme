@@ -17,31 +17,63 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-/*@Configuration
+
+import java.util.Arrays;
+
+@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(crsf -> crsf.disable()) //Deshabilitar la seguridad de todas las peticiones externas
+                .csrf(csrf -> csrf.disable()) //Deshabilitar la seguridad de todas las peticiones externas
                 // Configurar para que cualquier usuario pueda realizar peticiones
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll())
+                // Deshabilitar sesiones (REST API style)
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 //Puede requerir un user y un password
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
+
     // Codificar información (password)
     //passwordEncoder() debe inyectarse en UserService.class
     // e implementar en el metodo createUSer
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }*/
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Permitir el origen del Frontend
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://127.0.0.1:5501",
+                "http://localhost:5501",
+                "http://127.0.0.1:5500",
+                "http://localhost:5500"
+        ));
+
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+}
 
 //============JwtFilter============//
-
+/*
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -49,6 +81,7 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
     public SecurityConfig(JwtFilter jwtFilter) {
+
         this.jwtFilter = jwtFilter;
     }
 
@@ -75,7 +108,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // 3. ¡LA PIEZA QUE FALTABA! Conectar UserDetailsService + PasswordEncoder
+    // 3. Conectar UserDetailsService + PasswordEncoder
     @Bean
     public AuthenticationProvider authenticationProvider(UserRepository userRepository) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -95,9 +128,16 @@ public class SecurityConfig {
                 .authenticationProvider(authProvider) // <--- Inyectamos el proveedor aquí
                 .authorizeHttpRequests(auth -> auth
 
-
+                        // USUARIO NUEVO
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").permitAll()
+                        .requestMatchers("/api/v1/users/new-user").permitAll()
+                        .requestMatchers("/api/v1/users/new-user/**").permitAll()
+
+
+                        // IMPORTANTE: Permitir OPTIONS explícitamente con AntPathRequestMatcher
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+
                         // NOTIFICACIONES
                         .requestMatchers(HttpMethod.POST, "/api/v1/notificaciones/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/notificaciones/**").authenticated()
@@ -128,4 +168,31 @@ public class SecurityConfig {
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // 1. Permitir el origen del Frontend
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://127.0.0.1:5501",
+                "http://localhost:5501",
+                "http://127.0.0.1:5500",
+                "http://localhost:5500"
+        ));
+
+        // 2. Métodos permitidos
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // 3. Cabeceras permitidas (Authorization, Content-Type, etc)
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // 4. Permitir envío de credenciales (cookies/auth headers)
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
+
+ */

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,6 +31,14 @@ public class UserService {
     public User createUser(User newUser) {
         String encryptedPassword = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(encryptedPassword);
+        // Si no trae fecha, le ponemos la de hoy.
+        if (newUser.getRegisterDate() == null) {
+            newUser.setRegisterDate(LocalDate.now().toString());
+        }
+        // Asegurar status
+        if (newUser.getStatus() == null) {
+            newUser.setStatus(true);
+        }
         return userRepository.save(newUser);
     }
 
