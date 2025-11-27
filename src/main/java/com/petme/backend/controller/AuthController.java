@@ -46,7 +46,7 @@ public class AuthController {
 
             // 3. Si todo es correcto, generamos y devolvemos el token
             String token = jwtUtil.generateToken(user);
-            return ResponseEntity.ok(new TokenResponse(token)); // Devolvemos JSON limpio
+            return ResponseEntity.ok(new TokenResponse(token, user.getId(), user.getUsername()));
 
         } else {
             // 4. Si falla, error 401
@@ -58,11 +58,18 @@ public class AuthController {
     // (Puedes ponerla aquí mismo abajo o en un archivo aparte)
     static class TokenResponse {
         private String token;
+        private Long userId;      // <--- Agregado
+        private String username;
 
-        public TokenResponse(String token) {
+        public TokenResponse(String token, Long userId, String username) {
+
             this.token = token;
+            this.userId = userId;
+            this.username = username;
         }
 
         public String getToken() { return token; }
+        public Long getUserId() { return userId; }
+        public String getUsername() { return username; }
     }
 }
