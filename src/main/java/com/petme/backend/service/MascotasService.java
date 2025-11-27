@@ -56,4 +56,9 @@ public class MascotasService {
         mascota.setFecha_actualizacion(LocalDateTime.now());
         return mascotasRepository.save(mascota);
     }
+
+    //Método para filtrar mascotas
+    public List<Mascotas> buscarMascotasFiltradas(String especie, String tamano, Integer edad) {
+        return mascotasRepository.findMascotasByFiltros(especie, tamano, edad);
+    }
 }

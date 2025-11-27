@@ -60,4 +60,15 @@ public class MascotasController {
         return ResponseEntity.ok(actualizada);
     }
 
+    //Método para buscar
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Mascotas>> buscarMascotasFiltradas(
+            @RequestParam(required = false) String especie,
+            @RequestParam(required = false) String tamano,
+            @RequestParam(required = false) Integer edad) {
+
+        List<Mascotas> resultados = mascotasService.buscarMascotasFiltradas(especie, tamano, edad);
+        return ResponseEntity.ok(resultados);
+    }
+
 }
