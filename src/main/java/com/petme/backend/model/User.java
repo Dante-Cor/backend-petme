@@ -51,6 +51,10 @@ public class User {
     @Column(nullable = false)
     private Boolean status = true;
 
+    // --- AGREGA ESTO ---
+    @Column(name = "recovery_token")
+    private String recoveryToken;
+
     //RELACIONES
     //PUBLICACION
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -168,6 +172,14 @@ public class User {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getRecoveryToken() {
+        return recoveryToken;
+    }
+
+    public void setRecoveryToken(String recoveryToken) {
+        this.recoveryToken = recoveryToken;
     }
 
     @Override

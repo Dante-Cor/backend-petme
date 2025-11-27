@@ -1,8 +1,14 @@
 package com.petme.backend.controller;
 
-import com.petme.backend.exceptions.PublicacionNotFoundException;
+
 import com.petme.backend.model.Publicacion;
+import com.petme.backend.model.TipoNotificacion;
+import com.petme.backend.model.User;
+import com.petme.backend.service.NotificacionesService;
 import com.petme.backend.service.PublicacionService;
+import com.petme.backend.service.UserService;
+import com.petme.backend.exceptions.PublicacionNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +21,13 @@ import java.util.List;
 public class PublicacionController {
 
     private final PublicacionService publicacionService;
+    private final NotificacionesService notificacionesService;
+    private final UserService userService;
 
-    public PublicacionController(PublicacionService publicacionService) {
+    public PublicacionController(PublicacionService publicacionService, NotificacionesService notificacionesService, UserService userService) {
         this.publicacionService = publicacionService;
+        this.notificacionesService = notificacionesService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -58,6 +68,67 @@ public class PublicacionController {
             return ResponseEntity.status(HttpStatus.CREATED).body(updated);
         } catch (PublicacionNotFoundException e) {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    // NUEVO: Endpoint para dar LIKE
+    // POST /api/v1/publicaciones/{id}/like?userId=7
+    @PostMapping("/{id}/like")
+    public ResponseEntity<String> darLike(@PathVariable Long id, @RequestParam Long userId) {
+        try {
+            // A. Buscamos la publicación y quien da el like
+            Publicacion publicacion = publicacionService.findById(id);
+            User usuarioQueDaLike = userService.findById(userId);
+
+            // B. Actualizamos el contador de likes (Lógica simple)
+            publicacion.setLikes(publicacion.getLikes() + 1);
+            publicacionService.updatePublicacion(publicacion, id);
+
+            // C. --- AQUÍ VA EL CÓDIGO DE LA NOTIFICACIÓN ---
+            // Solo notificamos si el que da like NO es el mismo dueño (para no auto-notificarse)
+            if (!publicacion.getUsuario().getId().equals(userId)) {
+                notificacionesService.crearNotificacion(
+                        publicacion.getUsuario().getId(), // Dueño de la foto
+                        TipoNotificacion.like,            // Tipo nuevo
+                        "¡A alguien le gustó tu foto! ❤️",
+                        usuarioQueDaLike.getUsername() + " le ha dado like a tu publicación."
+                );
+            }
+
+            return ResponseEntity.ok("Like agregado y notificación enviada");
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al dar like: " + e.getMessage());
+        }
+    }
+
+    // NUEVO: Endpoint para COMENTAR
+    // POST /api/v1/publicaciones/{id}/comentario?userId=7&texto=QueBonito
+    @PostMapping("/{id}/comentario")
+    public ResponseEntity<String> comentar(@PathVariable Long id,
+                                           @RequestParam Long userId,
+                                           @RequestParam String texto) {
+        try {
+            Publicacion publicacion = publicacionService.findById(id);
+            User usuarioQueComenta = userService.findById(userId);
+
+            // (Aquí iría la lógica para guardar el comentario en BD si tuvieras la tabla)
+            // ejemplo: comentarioService.guardar(new Comentario(texto, ...));
+
+            // --- AQUÍ VA EL CÓDIGO DE LA NOTIFICACIÓN ---
+            if (!publicacion.getUsuario().getId().equals(userId)) {
+                notificacionesService.crearNotificacion(
+                        publicacion.getUsuario().getId(), // Al dueño de la publicación
+                        TipoNotificacion.comentario,      // Tipo nuevo
+                        "Nuevo comentario 💬",
+                        usuarioQueComenta.getUsername() + " comentó: " + texto
+                );
+            }
+
+            return ResponseEntity.ok("Comentario procesado y notificación enviada");
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al comentar: " + e.getMessage());
         }
     }
 }

@@ -116,4 +116,8 @@ public class UserService {
                 })
                 .orElseThrow(() -> new UserNotFoundException(id));
     }*/
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }
