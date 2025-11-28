@@ -3,7 +3,10 @@ package com.petme.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
+
+import java.util.ArrayList;
 
 /*⚠️ Nota: Este modelo asume que User y Mascota existen dentro de  com.petme.backend.model. */
 
@@ -48,6 +51,10 @@ public class Publicacion {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Mascotas mascota;
 
+    // --- AGREGAR ESTO ---
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comentario> comentarios = new ArrayList<>();
+
     // Constructors
     public Publicacion() {}
 
@@ -85,6 +92,10 @@ public class Publicacion {
 
     public Adopcion getAdopion() {return adopcion;}
     public void setAdopcion(Adopcion adopcion) {this.adopcion = adopcion;}
+
+    // Getter y Setter
+    public List<Comentario> getComentarios() { return comentarios; }
+    public void setComentarios(List<Comentario> comentarios) { this.comentarios = comentarios; }
 
     @Override
     public String toString() {
