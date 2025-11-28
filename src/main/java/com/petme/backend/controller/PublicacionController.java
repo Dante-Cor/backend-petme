@@ -1,18 +1,20 @@
 package com.petme.backend.controller;
 
 
+import com.petme.backend.exceptions.PublicacionNotFoundException;
+import com.petme.backend.model.Comentario; // <--- Importante
 import com.petme.backend.model.Publicacion;
 import com.petme.backend.model.TipoNotificacion;
 import com.petme.backend.model.User;
+import com.petme.backend.repository.ComentarioRepository; // <--- Importante
 import com.petme.backend.service.NotificacionesService;
 import com.petme.backend.service.PublicacionService;
 import com.petme.backend.service.UserService;
-import com.petme.backend.exceptions.PublicacionNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -23,11 +25,14 @@ public class PublicacionController {
     private final PublicacionService publicacionService;
     private final NotificacionesService notificacionesService;
     private final UserService userService;
+    private final ComentarioRepository comentarioRepository;
 
-    public PublicacionController(PublicacionService publicacionService, NotificacionesService notificacionesService, UserService userService) {
+
+    public PublicacionController(PublicacionService publicacionService, NotificacionesService notificacionesService, UserService userService, ComentarioRepository comentarioRepository) {
         this.publicacionService = publicacionService;
         this.notificacionesService = notificacionesService;
         this.userService = userService;
+        this.comentarioRepository = comentarioRepository;
     }
 
     @GetMapping
@@ -118,44 +123,41 @@ public class PublicacionController {
         }
     }
 
-    // NUEVO: Endpoint para COMENTAR
-    // POST /api/v1/publicaciones/{id}/comentario?userId=7&texto=QueBonito
+    // --- MÉTODO COMENTAR ACTUALIZADO ---
     @PostMapping("/{id}/comentario")
     public ResponseEntity<String> comentar(@PathVariable Long id,
                                            @RequestParam Long userId,
                                            @RequestParam String texto) {
         try {
+            // 1. Buscar entidades
             Publicacion publicacion = publicacionService.findById(id);
             User usuarioQueComenta = userService.findById(userId);
 
-            // (Aquí iría la lógica para guardar el comentario en BD si tuvieras la tabla)
-            // ejemplo: comentarioService.guardar(new Comentario(texto, ...));
+            // 2. GUARDAR EL COMENTARIO EN LA BD (¡La parte nueva!)
+            Comentario nuevoComentario = new Comentario(texto, usuarioQueComenta, publicacion);
+            comentarioRepository.save(nuevoComentario);
 
-            // --- AQUÍ VA EL CÓDIGO DE LA NOTIFICACIÓN ---
+            // 3. ENVIAR NOTIFICACIÓN (Si no es el mismo dueño)
             if (!publicacion.getUsuario().getId().equals(userId)) {
                 notificacionesService.crearNotificacion(
-                        publicacion.getUsuario().getId(), // Al dueño de la publicación
-                        TipoNotificacion.comentario,      // Tipo nuevo
+                        publicacion.getUsuario().getId(),
+                        TipoNotificacion.comentario,
                         "Nuevo comentario 💬",
                         usuarioQueComenta.getUsername() + " comentó: " + texto
                 );
             }
 
-            return ResponseEntity.ok("Comentario procesado y notificación enviada");
+            return ResponseEntity.ok("Comentario guardado y notificación enviada");
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al comentar: " + e.getMessage());
         }
     }
 
-    // GET: Obtener publicaciones de un usuario específico
     @GetMapping("/usuario/{userId}")
     public ResponseEntity<List<Publicacion>> getByUsuario(@PathVariable Long userId) {
         List<Publicacion> lista = publicacionService.getAllPublicaciones()
                 .stream()
-                // FILTRO DE SEGURIDAD:
-                // 1. Verificamos que p.getUsuario() NO sea null
-                // 2. Verificamos que el ID coincida
                 .filter(p -> p.getUsuario() != null && p.getUsuario().getId().equals(userId))
                 .toList();
 
