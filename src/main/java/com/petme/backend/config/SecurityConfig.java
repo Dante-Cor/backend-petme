@@ -92,12 +92,23 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .httpBasic(basic -> basic.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authProvider) // <--- Inyectamos el proveedor aquí
+                .authenticationProvider(authProvider)
                 .authorizeHttpRequests(auth -> auth
 
+                        // ======================================================
+                        // 1. ZONA FRONTEND (¡ESTO ES LO NUEVO QUE NECESITAS!)
+                        // ======================================================
+                        // Permitir entrar a la página principal y archivos base
+                        .requestMatchers("/", "/index.html", "/favicon.ico").permitAll()
+                        // Permitir acceso a TUS carpetas de diseño (tal cual las tienes en IntelliJ)
+                        .requestMatchers("/CSS/**", "/JavaScript/**", "/Img/**", "/componentes/**", "/templates/**").permitAll()
 
+                        // ======================================================
+                        // 2. ZONA BACKEND (LO QUE YA TENÍAS)
+                        // ======================================================
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/v1/users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
+
                         // NOTIFICACIONES
                         .requestMatchers(HttpMethod.POST, "/api/v1/notificaciones/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/notificaciones/**").authenticated()
@@ -125,9 +136,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/fotos/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/fotos/**").authenticated()
 
+                        // BLOQUEAR TODO LO DEMÁS
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
+

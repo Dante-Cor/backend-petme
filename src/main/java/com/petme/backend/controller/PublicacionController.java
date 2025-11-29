@@ -123,31 +123,36 @@ public class PublicacionController {
         }
     }
 
-    // --- MÉTODO COMENTAR ACTUALIZADO ---
     @PostMapping("/{id}/comentario")
     public ResponseEntity<String> comentar(@PathVariable Long id,
                                            @RequestParam Long userId,
                                            @RequestParam String texto) {
         try {
-            // 1. Buscar entidades
+            // 1. Buscar la publicación y el usuario
             Publicacion publicacion = publicacionService.findById(id);
             User usuarioQueComenta = userService.findById(userId);
 
-            // 2. GUARDAR EL COMENTARIO EN LA BD (¡La parte nueva!)
-            Comentario nuevoComentario = new Comentario(texto, usuarioQueComenta, publicacion);
+            // 2. CREAR Y GUARDAR EL COMENTARIO (¡ESTO FALTABA!)
+            // (Asegúrate de tener la clase Comentario creada en tus modelos)
+            com.petme.backend.model.Comentario nuevoComentario = new com.petme.backend.model.Comentario();
+            nuevoComentario.setTexto(texto);
+            nuevoComentario.setAutor(usuarioQueComenta);
+            nuevoComentario.setPublicacion(publicacion);
+
+            // Guardamos en la Base de Datos
             comentarioRepository.save(nuevoComentario);
 
-            // 3. ENVIAR NOTIFICACIÓN (Si no es el mismo dueño)
+            // 3. ENVIAR NOTIFICACIÓN
             if (!publicacion.getUsuario().getId().equals(userId)) {
                 notificacionesService.crearNotificacion(
                         publicacion.getUsuario().getId(),
-                        TipoNotificacion.comentario,
+                        com.petme.backend.model.TipoNotificacion.comentario,
                         "Nuevo comentario 💬",
                         usuarioQueComenta.getUsername() + " comentó: " + texto
                 );
             }
 
-            return ResponseEntity.ok("Comentario guardado y notificación enviada");
+            return ResponseEntity.ok("Comentario guardado correctamente");
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al comentar: " + e.getMessage());

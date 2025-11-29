@@ -51,9 +51,10 @@ public class Publicacion {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Mascotas mascota;
 
-    // --- AGREGAR ESTO ---
+    // --- 🔥 NUEVO: RELACIÓN CON COMENTARIOS ---
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comentario> comentarios = new ArrayList<>();
+
 
     // Constructors
     public Publicacion() {}
