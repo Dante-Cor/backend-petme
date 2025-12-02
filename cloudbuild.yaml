@@ -1,0 +1,27 @@
+steps:
+  # 1. Construir la imagen Docker
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/pet-me-repo/pet-me-app:$COMMIT_SHA', '.']
+
+  # 2. Subir la imagen al registro
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/pet-me-repo/pet-me-app:$COMMIT_SHA']
+
+  # 3. Desplegar en Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'pet-me-service'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/pet-me-repo/pet-me-app:$COMMIT_SHA'
+      - '--region'
+      - 'us-central1'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      # Aquí van tus variables
+      - 'PROD_DB_HOST=34.28.166.111,PROD_DB_NAME=pet_me,PROD_DB_USERNAME=root,PROD_DB_PASSWORD=$_DB_PASSWORD,PROD_DDL=update'
+
+substitutions:
+  _DB_PASSWORD: 'PASSWORD_FALSA'
