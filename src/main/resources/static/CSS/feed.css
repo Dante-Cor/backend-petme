@@ -1,0 +1,1010 @@
+/* PetMe Feed Page Styles */
+
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* Root Variables */
+:root {
+  /* PetMe Color Palette */
+  --petme-bg: #023d54;
+  --petme-text: #ffffff;
+  --petme-primary: #02968a;
+  --petme-primary-hover: #94dea5;
+  --petme-accent: #ffff66;
+  --petme-border: #037f74;
+  --petme-container-bg: #0e182b;
+  --petme-font-primary: 'Poppins', sans-serif;
+
+  /* Feed-specific colors */
+  --surface-light: #ffffff;
+  --surface-dark: #1a1a1a;
+  --border-light: #e5e7eb;
+  --border-dark: #374151;
+  --text-light-primary: #111827;
+  --text-light-secondary: #6b7280;
+  --text-dark-primary: #f9fafb;
+  --text-dark-secondary: #9ca3af;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-dark: rgba(255, 255, 255, 0.05);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--petme-primary-hover);
+  color: var(--text-light-primary);
+  line-height: 1.5;
+  padding-top: 90px;
+}
+
+/* Layout Container */
+.design-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 40px 16px;
+  position: relative;
+}
+
+/* NAV BASE */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: var(--petme-bg);
+  color: white;
+}
+
+/* Ocultar menú desktop */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Hamburguesa */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 32px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Menú móvil */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 70%;
+  height: 100%;
+  background: var(--petme-bg);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: right 0.3s ease;
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+/* Mobile Filter Button */
+.mobile-filter-btn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: auto;
+  left: 30px;
+  z-index: 1000;
+  padding: 12px 20px;
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.mobile-filter-btn:hover {
+  background-color: var(--petme-primary-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-filter-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 240px 1fr 240px;
+  gap: 48px;
+  max-width: 1400px;
+  width: 100%;
+}
+
+/* Main Content Area */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.petme-btn-contact {
+  background-color: var(--petme-bg);
+  color: var(--petme-text);
+  transition: background-color 0.3s ease;
+}
+
+.petme-btn-contact:hover {
+  background-color: var(--petme-primary-hover) !important;
+  color: var(--petme-bg) !important;
+}
+
+.petme-btn-submit {
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  transition: background-color 0.3s ease;
+  border: none;
+  font-weight: 600;
+}
+
+.petme-btn-submit:hover {
+  background-color: var(--petme-primary-hover);
+  color: var(--petme-bg);
+}
+
+/* Sidebar Styles */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 24px;
+}
+
+.sidebar-content {
+  background-color: #037f74;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--petme-accent);
+  margin: 0 0 16px 0;
+}
+
+.filter-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.filter-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--petme-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 8px 16px;
+}
+
+.filter-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: left;
+  width: 100%;
+  text-decoration: none;
+  color: #023d54;
+}
+
+.filter-link:hover {
+  background-color: #ffff66;
+  color: #023d54;
+}
+
+.filter-link:hover .filter-text,
+.filter-link:hover .filter-text-only {
+  color: #023d54;
+}
+
+.filter-link.active {
+  background-color: var(--petme-primary);
+}
+
+.filter-link.active .filter-text {
+  color: var(--petme-text);
+  font-weight: 700;
+}
+
+.filter-link.active .material-symbols-outlined,
+.filter-link.active .filter-text-only {
+  color: var(--petme-text);
+}
+
+.filter-link .material-symbols-outlined {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.filter-link .filter-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.filter-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--petme-text);
+  margin: 0;
+}
+
+.filter-text-only {
+  font-size: 18px;
+  font-weight: 700;
+  color: #023d54;
+  width: 24px;
+  text-align: center;
+}
+
+/* Feed Container */
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Cards Responsivas --- */
+@media (max-width: 768px) {
+  .pet-card {
+    width: 100%;
+  }
+
+  .pet-card-header {
+    flex-wrap: wrap;
+  }
+
+  .pet-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .pet-image {
+    aspect-ratio: 1 / 1; /* Mejor para móvil */
+  }
+
+  .pet-card-footer {
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pet-image {
+    aspect-ratio: 4 / 5; /* Vertical en pantallas muy pequeñas */
+  }
+}
+
+/* Pet Cards Wrapper */
+.pet-cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Pet Card Styles */
+.pet-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  box-shadow: 0 0 12px var(--shadow-light);
+  background-color: var(--surface-light);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px var(--shadow-light);
+}
+
+/* Card Header */
+.pet-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light-primary);
+  margin: 0;
+}
+
+.profile-location {
+  font-size: 12px;
+  color: var(--text-light-secondary);
+  margin: 0;
+}
+
+/* Pet Image */
+.pet-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Card Body */
+.pet-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.pet-info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pet-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-primary);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.pet-details {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-light-secondary);
+  margin: 4px 0 0 0;
+}
+
+.btn-adopt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  max-width: 480px;
+  height: 40px;
+  padding: 0 24px;
+  background-color: var(--petme-accent) !important;
+  color: var(--petme-bg) !important;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid var(--petme-accent) !important;
+  border-radius: 8px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.btn-adopt:hover {
+  background-color: var(--petme-primary-hover) !important;
+  border-color: var(--petme-primary-hover) !important;
+  color: var(--petme-bg) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-adopt span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pet-description {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-light-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Card Footer */
+.pet-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-light-secondary);
+}
+
+.action-btn .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.action-btn:hover {
+  color: var(--text-light-primary);
+}
+
+.like-btn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.like-btn:hover .material-symbols-outlined {
+  color: #ef4444;
+}
+
+.comment-btn:hover,
+.share-btn:hover {
+  background-color: rgba(2, 150, 138, 0.2);
+  color: var(--text-light-primary);
+}
+
+.action-count {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.015em;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 200px 1fr;
+  }
+
+  .sidebar-right {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    display: block;
+    padding: 0 10px;
+  }
+
+  .mobile-filter-btn {
+    display: flex;
+  }
+
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .sidebar.active,
+  .sidebar.show {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .sidebar .sidebar-sticky {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .sidebar .sidebar-content {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-right {
+    display: none;
+  }
+
+  .main-container {
+    padding: 20px 12px;
+  }
+
+  .pet-card-footer {
+    justify-content: space-around;
+  }
+
+  .pet-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-adopt {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .pet-name {
+    font-size: 18px;
+  }
+
+  .pet-details {
+    font-size: 13px;
+  }
+
+  .pet-description {
+    font-size: 14px;
+  }
+
+  .action-btn {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .action-count {
+    font-size: 13px;
+  }
+}
+
+/* You Might Like Sidebar */
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.suggestion-info {
+  flex: 1;
+}
+
+.suggestion-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #023d54;
+  margin: 0 0 4px 0;
+}
+
+.suggestion-breed {
+  font-size: 14px;
+  color: #023d54;
+  margin: 0;
+}
+
+.suggestion-view {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.suggestion-view:hover {
+  color: var(--petme-primary-hover);
+}
+
+/* --- Controles del Feed (Localización y Botones) --- */
+.petme-icon-location {
+  color: var(--petme-primary);
+}
+.location-city {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--petme-bg);
+}
+.petme-filter-btn {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  background-color: var(--petme-primary-hover);
+  color: var(--petme-bg);
+  transition: all 0.2s ease-in-out;
+}
+.petme-filter-btn:hover {
+  background-color: var(--petme-accent);
+  transform: translateY(-2px);
+}
+.petme-update-btn {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+  transition: all 0.2s ease-in-out;
+}
+.petme-update-btn:hover {
+  background-color: var(--petme-dark-slate-gray);
+  transform: scale(1.03);
+}
+
+/* --- Tarjetas de Mascotas (Pet Cards) --- */
+
+.pet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.pet-img {
+  height: 200px;
+  object-fit: cover;
+}
+.pet-name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: var(--petme-dark-slate-gray);
+}
+.pet-action-btn {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  transition: all 0.2s ease-in-out;
+}
+.petme-btn-favorite {
+  background-color: var(--petme-yellow);
+  color: var(--petme-dark-slate-gray);
+}
+.petme-btn-favorite:hover {
+  background-color: #cccc00;
+  transform: scale(1.05);
+}
+.petme-btn-contact {
+  background-color: var(--petme-dark-slate-gray);
+  color: var(--petme-white);
+}
+.petme-btn-contact:hover {
+  background-color: var(--petme-dark-cyan);
+  transform: scale(1.05);
+}
+
+/* --- Botón de Acción Flotante (FAB) --- */
+
+/* 1. Definición UNIFICADA y BASE para la PÍLDORA */
+.petme-fab-btn.petme-fab-pill {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1050;
+
+  /* Propiedades FÍSICAS del Botón (Píldora) */
+  width: 150px; /* Tamaño adaptado para la imagen de fondo */
+  height: 50px; /* Altura adaptada para la imagen de fondo */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+
+  /* RESET para BG-IMAGE */
+  padding: 0; /* Elimina el padding para que la imagen ocupe todo */
+  border: none; /* Elimina el borde de color petme-yellow */
+  background-color: var(--petme-dark-cyan);
+  display: block; /* Ocupa el espacio definido por width/height */
+}
+
+.petme-fab-btn.petme-fab-pill:hover {
+  /* Mantener el efecto hover con sombra y escala */
+  background-color: transparent;
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4); /* Sombra al pasar el ratón */
+}
+
+/* 2. ESTILOS ESPECÍFICOS para la IMAGEN DE FONDO */
+.petme-fab-btn.petme-fab-image-bg {
+  background-image: url('/Img/boton2.png'); /* Tu imagen */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 3. CLASES DE TEXTO/ICONO ELIMINADAS */
+/* Si usas la imagen de fondo, debes eliminar todas estas reglas */
+.petme-fab-btn i.petme-plus-icon,
+.petme-fab-btn span.petme-fab-text,
+.petme-fab-btn img.petme-fab-logo {
+  display: none; /* Asegura que no se muestren elementos no deseados */
+}
+
+@media (max-width: 768px) {
+  .petme-fab-btn.petme-fab-pill {
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    height: 44px;
+  }
+}
+
+/* --- Animación de Entrada de Tarjetas (CSS Keyframes) --- */
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pet-card-col {
+  animation: fadeInSlideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/*  MODAL   */
+.petme-card {
+  background-color: var(--petme-bg);
+  border-radius: 20px;
+  box-shadow: var(--petme-btn-shadow);
+  color: var(--petme-text);
+}
+
+.petme-textarea {
+  background-color: var(--petme-primary-hover);
+  border: 2px var(--petme-primary-hover);
+  border-radius: 10px;
+}
+
+.petme-textarea:focus {
+  background-color: var(--petme-bg);
+  box-shadow: var(--petme-btn-shadow);
+  border: 4px var(--petme-accent);
+  color: var(--petme-text);
+}
+
+.petme-upload {
+  background-color: var(--petme-bg);
+  border: 2px dashed var(--petme-primary-hover);
+  transition: all 0.3s ease;
+}
+
+.petme-upload:hover {
+  background-color: var(--petme-bg);
+  transform: scale(1.02);
+}
+/* Estilos para la previsualización de subida */
+.preview-item {
+  position: relative;
+  height: 100px;
+}
+.preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.btn-remove-img {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+.btn-remove-img:hover {
+  background: red;
+}
+
+.petme-option {
+  background-color: transparent;
+  color: var(--petme-primary);
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.petme-option:hover {
+  color: var(--petme-primary-hover);
+  transform: scale(1.05);
+}
+
+.petme-visibility-btn {
+  background-color: var(--petme-container-bg);
+  color: var(--petme-text);
+  border: none;
+  border-radius: 8px;
+}
+
+.btn.petme-btn-contact {
+  background-color: var(--petme-primary);
+  color: var(--petme-text);
+}
+
+/* --- Footer --- */
+.petme-footer {
+  background-color: var(--petme-bg);
+  color: var(--petme-text);
+  position: relative;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Ajuste de FAB en escritorio */
+@media (min-width: 768px) {
+  .petme-fab-btn {
+    right: calc((100vw - 1200px) / 2 + 20px);
+    bottom: 40px;
+  }
+
+  /* Botones de actividad   */
+  .like-btn.liked span {
+    color: red;
+  }
+  .like-btn.active {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    transition: all 0.2s ease;
+  }
+
+  .material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 24;
+    color: red;
+  }
+  .comment-section {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .comment-item {
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/*  FILTRO DE EDAD */
+.filter-range-control {
+  padding: 10px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+#ageValue {
+  font-weight: 600;
+  color: var(--petme-primary);
+  font-size: 0.95rem;
+}
+
+.form-range {
+  height: 25px;
+}
+
+/* --- ANULACIÓN DEL FOCO AZUL DE BOOTSTRAP EN MODAL --- */
+.modal-body .form-control:focus,
+.modal-body .form-select:focus,
+.petme-textarea:focus {
+  border-color: var(--petme-accent);
+  box-shadow: 0 0 0 0.25rem #ffff66 !important;
+}
+
+.petme-textarea:focus {
+  background-color: var(--petme-bg);
+  border: 4px solid var(--petme-accent);
+  color: var(--petme-text);
+}
+
+/* --- visualización imagenes modal --- */
+.preview-item {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+}
+
+.preview-thumb {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.preview-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: white;
+  border-radius: 50%;
+  padding: 2px;
+}

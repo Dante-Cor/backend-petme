@@ -1,0 +1,331 @@
+/* ========== PETME LOGIN - BOOTSTRAP VERSION ========== */
+
+/* ---------- ESTILOS GLOBALES ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--petme-font-primary) !important;
+  background-color: var(--petme-bg) !important;
+  color: var(--petme-text) !important;
+}
+
+/* ---------- FONDO Y CONTENEDOR PRINCIPAL ---------- */
+.petme-bg {
+  background-color: var(--petme-bg);
+  min-height: 100vh;
+}
+
+/* ---------- CONTENEDOR DE LOGIN ---------- */
+.petme-login-container {
+  background-color: var(--petme-container-bg);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px var(--petme-shadow);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ---------- TARJETA DE LOGIN ---------- */
+.petme-login-card {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* ---------- LOGO ---------- */
+.petme-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  /* Imagen corregida, sin necesidad de filtros */
+}
+
+/* ---------- TÍTULOS ---------- */
+.petme-title {
+  color: var(--petme-accent) !important;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--petme-font-accent); /* Montserrat para títulos */
+}
+
+.petme-subtitle {
+  color: var(--petme-text) !important;
+  font-size: 0.95rem;
+  opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para subtítulos */
+}
+
+/* ---------- LABELS ---------- */
+.petme-label {
+  color: var(--petme-text) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: var(--petme-font-primary); /* Poppins para labels */
+}
+
+/* ---------- INPUTS ---------- */
+.petme-input {
+  background-color: transparent !important;
+  border: 2px solid var(--petme-border) !important;
+  border-radius: 0.5rem !important;
+  color: var(--petme-text) !important;
+  padding: 0.75rem !important;
+  font-size: 1rem;
+  font-family: var(--petme-font-primary); /* Poppins para inputs */
+  transition: all 0.3s ease;
+
+}
+
+.petme-input:focus {
+  background-color: transparent !important;
+  border-color: var(--petme-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-focus) !important;
+  color: var(--petme-text) !important;
+}
+
+.petme-input::placeholder {
+  color: var(--petme-placeholder) !important;
+}
+
+.input-group input[type="password"] {
+    /* 1. Eliminar borde y radio a la derecha del input */
+    border-right: none !important; 
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+/* Modificación al botón de toggle (input-group-text) */
+.input-group-text {
+    border-left: none !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+/* ---------- AJUSTE PARA EL BOTÓN MOSTRAR/OCULTAR CONTRASEÑA ---------- */
+.input-group-text {
+    background-color: var(--petme-primary) !important; 
+    border: 2px solid var(--petme-primary) !important;
+    color: var(--petme-text) !important; 
+    border-radius: 0 0.5rem 0.5rem 0 !important; 
+    padding: 0.75rem !important; 
+
+    /*ELIMINAR EL BORDE DE LA IZQUIERDA */
+    border-left: none !important;
+    
+    /*ELIMINAR EL RADIO DE ESQUINA DE LA IZQUIERDA */
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+
+    /* Asegurar que el radio de la DERECHA esté redondeado */
+    border-radius: 0 0.5rem 0.5rem 0 !important; 
+}
+
+/* ---------- BOTÓN PRINCIPAL ---------- */
+.petme-btn {
+  background-color: var(--petme-primary) !important;
+  border: none !important;
+  border-radius: 0.5rem !important;
+  color: var(--petme-text) !important;
+  padding: 0.8rem !important;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--petme-font-primary); /* Poppins para botones */
+  transition: all 0.3s ease;
+}
+
+.petme-btn:hover {
+  background-color: var(--petme-primary-hover) !important;
+  color: var(--petme-bg) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px var(--petme-btn-shadow);
+}
+
+.petme-btn:focus {
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-btn) !important;
+}
+
+/* ---------- TEXTO PEQUEÑO Y ENLACES ---------- */
+.petme-small-text {
+  font-size: 0.9rem;
+  color: var(--petme-text) !important;
+  opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para texto pequeño */
+}
+
+.petme-link {
+  color: var(--petme-accent) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-family: var(--petme-font-primary); /* Poppins para enlaces */
+  transition: all 0.3s ease;
+}
+
+.petme-link:hover {
+  color: var(--petme-accent) !important;
+  text-decoration: underline !important;
+  filter: brightness(1.1);
+}
+
+.petme-Second-link {
+  color: var(--petme-accent) !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  font-family: var(--petme-font-primary); /* Poppins para enlaces */
+  transition: all 0.3s ease;
+}
+
+.petme-Second-link:hover {
+  color: var(#ffffff) !important;
+  text-decoration: underline !important;
+  filter: brightness(1.1);
+}
+
+/* ---------- FOOTER ---------- */
+.petme-footer {
+  background-color: transparent !important;
+  color: var(--petme-text) !important;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-family: var(--petme-font-secondary); /* Nunito para footer */
+  position: relative;
+  margin-top: auto;
+  bottom: 0;
+  width: 100%;
+}
+
+/* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+@media (max-width: 576px) {
+  .petme-login-container {
+    padding: 1.5rem !important;
+    border-radius: 8%;
+  }
+
+  .petme-logo {
+    width: 100px;
+    height: auto;
+  }
+
+  .petme-title {
+    font-size: 1.5rem;
+  }
+
+  .petme-subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1rem !important;
+  }
+
+  .petme-login-container {
+    padding: 1rem !important;
+    border-radius: 6%;
+  }
+
+  .petme-logo {
+    width: 80px;
+    height: auto;
+  }
+
+  .petme-title {
+    font-size: 1.4rem;
+  }
+} /* ---------- ANIMACIONES ---------- */
+.petme-login-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- BOOTSTRAP OVERRIDES ---------- */
+.form-control:focus {
+  border-color: var(--petme-accent) !important;
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-focus) !important;
+}
+
+.btn:focus {
+  box-shadow: 0 0 0 0.2rem var(--petme-shadow-btn) !important;
+}
+
+/* Asegurar que el container-fluid ocupe toda la altura */
+.container-fluid {
+  min-height: 100vh !important;
+}
+.bg-primary {
+  background: linear-gradient(to right, var(--bs-primary), var(--bs-secondary));
+}
+/* Carrusel de adopción */
+
+:root {
+  --bs-primary: #4F8AE3;
+  --bs-secondary: #724FE3;
+  --bs-success: #4F5CE3;
+  --bs-info: #A34FE3;
+  --bs-warning: #FFC107;
+  --bs-danger: #DC3545;
+  --bs-light: #C1C4E8;
+  --bs-dark: #343A40;
+}
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 1rem;
+}
+#carruselMascotas {
+  max-height: 400px;
+  overflow: hidden;
+}
+.carousel-item img {
+  max-height: 400px;
+  
+  object-fit: contain;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: var(--bs-dark); 
+  border-radius: 50%;
+  padding: 10px;
+  opacity: 10 ;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 5rem;
+  height: 5rem;
+} 
+
+
+/* Ocultar botones/íconos predeterminados en campos de contraseña agregados por los navegadores */
+
+/* Para Chrome y navegadores basados en WebKit */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+/* Ocultar el ícono de "mostrar contraseña" en Edge/IE */
+input[type="password"]::-webkit-reveal {
+    display: none !important;
+}
+
+/* Ocultar el control de botón en Firefox */
+input[type="password"]::-moz-placeholder {
+}
+
+/* Regla para intentar asegurar que la caja de texto no tenga espacio para el ícono predeterminado */
+input[type="password"] {
+    padding-right: 0 !important;
+}
