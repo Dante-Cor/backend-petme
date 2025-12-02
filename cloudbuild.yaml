@@ -19,6 +19,7 @@ steps:
       - '--region'
       - 'us-central1'
       - '--allow-unauthenticated'
+      - '--add-cloudsql-instances=steam-house-479916-u7:us-central1:mi-servidor-cloud'
       - '--set-env-vars'
       # Aquí van tus variables
       - 'PROD_DB_HOST=34.28.166.111,PROD_DB_NAME=pet_me,PROD_DB_USERNAME=root,PROD_DB_PASSWORD=$_DB_PASSWORD,PROD_DDL=update'
