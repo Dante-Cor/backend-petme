@@ -1,13 +1,29 @@
 # --- Etapa 1: Compilar (Builder) ---
-FROM gradle:7.6.1-jdk17 AS builder
+# Usamos una imagen JDK estándar (Eclipse Temurin) en lugar de la de Gradle
+# Esto evita el conflicto de permisos de usuario vs root
+FROM eclipse-temurin:17-jdk-jammy AS builder
+
 WORKDIR /app
-COPY --chown=gradle:gradle . .
-# Creamos el JAR saltando los tests (vital para que no falle buscando la DB)
-RUN gradle bootJar -x test --no-daemon
+
+# Copiamos todo el código fuente
+COPY . .
+
+# Damos permisos de ejecución al "wrapper" de Gradle (vital en Linux/Docker)
+RUN chmod +x ./gradlew
+
+# Ejecutamos el build usando tu propio wrapper
+# Esto descargará Gradle automáticamente dentro de la imagen y compilará
+RUN ./gradlew bootJar -x test --no-daemon
 
 # --- Etapa 2: Ejecutar (Runner) ---
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jre-jammy
+
 WORKDIR /app
+
+# Copiamos el JAR generado.
+# Al usar el wrapper, la ruta suele ser build/libs/
 COPY --from=builder /app/build/libs/*.jar app.jar
+
 EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
