@@ -25,3 +25,6 @@ steps:
 
 substitutions:
   _DB_PASSWORD: 'PASSWORD_FALSA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
