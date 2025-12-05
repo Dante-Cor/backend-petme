@@ -1,5 +1,5 @@
 // CAMBIAR POR TU IP DE AWS EL VIERNES
-const API_BASE_URL = 'http://3.19.205.72:8080';
+const API_BASE_URL = 'http://34.28.166.111:8080';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. LLENAR SELECT DE ESTADOS (Para que no esté vacío)

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://3.19.205.72:8080/api/v1/adopciones';
+const BASE_URL = '/api/v1/adopciones';
 
 async function apiFetch(url, options = {}) {
     const defaultHeaders = {

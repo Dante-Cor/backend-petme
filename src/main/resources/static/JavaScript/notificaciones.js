@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Configuración
     // ⚠️ CAMBIAR POR TU IP DE AWS EL VIERNES
-    const API_URL = "http://3.19.205.72:8080/api/v1/notificaciones";
+    const API_URL = "/api/v1/notificaciones";
 
     // --- CORRECCIÓN AQUÍ: Usamos las mismas llaves que tu login.js ---
     const token = localStorage.getItem("access_token"); 
