@@ -1,5 +1,5 @@
 // ⚠️ CAMBIAR POR TU IP DE AWS EL VIERNES
-const API_URL = 'http://3.19.205.72:8080/api/v1';
+const API_URL = '/api/v1';
 
 // Variables globales
 let imagenesSeleccionadas = [];

@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // --- CONECTAR AL BACKEND ---
-    const API_BASE = 'http://3.19.205.72:8080';
+    const API_BASE = 'http://34.28.166.111:8080';
     const TOKEN_KEY = 'access_token';
 
     // --- Evento submit (único y correcto) ---

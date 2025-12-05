@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // ⚠️ CAMBIAR IP EN AWS
-  const API_URL = 'http://3.19.205.72:8080/api/v1';
+  const API_URL = '/api/v1';
 
   // Credenciales
   const userId = localStorage.getItem('userId');
